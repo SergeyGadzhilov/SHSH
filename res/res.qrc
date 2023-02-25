@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/">
+        <file>text/gpl-3.0.txt</file>
+        <file>img/linux.png</file>
+        <file>img/mac.png</file>
+        <file>img/windows.png</file>
+        <file>img/file.png</file>
+        <file>img/folder.png</file>
+        <file>styles/style.qss</file>
+        <file>icons/upload.svg</file>
+        <file>icons/download.svg</file>
+        <file>icons/settings.svg</file>
+        <file>icons/about.svg</file>
+        <file>icons/logo.svg</file>
+        <file>icons/clear.svg</file>
+        <file>icons/addfile.svg</file>
+        <file>icons/addfolder.svg</file>
+        <file>fonts/Roboto-Bold.ttf</file>
+        <file>fonts/Roboto-Regular.ttf</file>
+    </qresource>
+</RCC>

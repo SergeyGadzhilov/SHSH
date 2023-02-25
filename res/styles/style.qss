@@ -1,0 +1,142 @@
+* {
+    font-family: "Roboto";
+    margin: 0px;
+    padding: 0px;
+}
+
+MainWindow {
+    background-color: #1E293B;
+}
+
+QLabel {
+    margin: 0;
+    color: #FFFFFF;
+    font-size: 20px;
+}
+
+QPushButton::pressed {
+    background-color: transparent;
+}
+
+QTabWidget {
+   background-color: #1E293B;
+}
+
+QTextEdit {
+    color: #FFFFFF;
+    font-size: 20px;
+    background-color: #1E293B;
+}
+
+ReceiverSelectorDialog {
+    background-color: #1E293B;
+}
+
+shshare--widgets--page--Page {
+    margin: 25;
+}
+
+shshare--widgets--page--Title {
+    margin: 0px;
+    font-size: 24pt;
+}
+
+/* Sidebar */
+shshare--widgets--SideBar{
+    background-color: #0F172A;
+}
+
+shshare--widgets--sidebar--Button {
+    color: #FFFFFF;
+    border: 0px;
+    background-color: #0F172A;
+}
+
+shshare--widgets--sidebar--Button::hover {
+    color: #FFFFFF;
+    background-color: #1E293B;
+}
+
+/* Sidebar end */
+
+/* Connection table */
+QHeaderView::section {
+    color: #94A3B8;
+    border: none;
+    padding: 10;
+    font-size: 10pt;
+    font-weight: bold;
+    border-top: 1px solid #334155;
+    border-bottom: 1px solid #334155;
+    background-color: #1E293B;
+}
+
+shshare--widgets--table--Table {
+    border: none;
+    color: #FFFFFF;
+    background-color: #1E293B;
+    gridline-color: transparent ;
+}
+
+shshare--widgets--table--Table::item {
+    border-bottom: 1px solid #334155;
+}
+
+shshare--widgets--table--Table::item::selected {
+    border: none;
+    color: #FFFFFF;
+    background-color: #0F172A;
+}
+
+shshare--widgets--table--Table::item::focus {
+    border: none;
+}
+
+/* Connection table end*/
+
+/* Settings tabs */
+QTabWidget::pane{
+    border: none;
+    border-top: 1px solid #334155;
+}
+
+QTabWidget  QTabBar {
+    border: 1px solid blue;
+}
+
+QTabWidget QTabBar::tab {
+    color: #FFFFFF;
+    width: 80px;
+    background-color: #1E293B;
+    font-family: "Roboto";
+    font-weight: bold;
+    font-size: 16px;
+    padding: 14px;
+}
+
+QTabWidget QTabBar::tab::selected{
+    color: #93C5FD;
+    border-bottom: 2px solid #93C5FD;
+}
+
+shshare--widgets--settings--Tab {
+    font-family: "Roboto";
+    font-weight: bold;
+    font-size: 16px;
+    background-color: #1E293B;
+}
+
+shshare--widgets--settings--Label{
+    padding: 14px;
+    border-bottom: 1px solid #334155;
+}
+/* Settings tab end */
+
+shshare--widgets--settings--TextEdit,
+shshare--widgets--settings--Port,
+shshare--widgets--settings--BufferSize,
+shshare--widgets--settings--Interval,
+shshare--widgets--settings--Path,
+shshare--widgets--settings--Toggle{
+    border-bottom: 1px solid #334155;
+}

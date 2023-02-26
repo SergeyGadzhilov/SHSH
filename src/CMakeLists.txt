@@ -77,6 +77,23 @@ install(TARGETS SHShare
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
+include(InstallRequiredSystemLibraries)
+if(WIN32)
+    find_program(WINDEPLOYQT windeployqt HINTS "${_qt_bin_dir}")
+    configure_file("${CMAKE_CURRENT_SOURCE_DIR}/deploy-windows.cmake.in" "${CMAKE_CURRENT_SOURCE_DIR}/deploy-windows.cmake" @ONLY)
+    set(CPACK_PRE_BUILD_SCRIPTS ${CMAKE_CURRENT_SOURCE_DIR}/deploy-windows.cmake)
+endif()
+
+set(CPACK_GENERATOR "IFW")
+set(CPACK_IFW_ROOT "C:/QT/Tools/QtInstallerFramework/4.5")
+set(CPACK_PACKAGE_VERSION_MAJOR "0")
+set(CPACK_PACKAGE_VERSION_MINOR "0")
+set(CPACK_PACKAGE_VERSION_PATCH "1")
+set(CPACK_PACKAGE_DIRECTORY "${CMAKE_INSTALL_PREFIX}/pack")
+
+include(CPACK)
+include(CPackIFW)
+
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(SHShare)
 endif()

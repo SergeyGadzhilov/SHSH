@@ -4,8 +4,10 @@ install(TARGETS SHShare
 
 include(InstallRequiredSystemLibraries)
 if(WIN32)
+    set(INSTALL_SCRIPTS ${CMAKE_CURRENT_SOURCE_DIR}/install/win)
     find_program(WINDEPLOYQT windeployqt HINTS "${_qt_bin_dir}")
-    set(CPACK_PRE_BUILD_SCRIPTS ${CMAKE_CURRENT_SOURCE_DIR}/install/win/dependencies.cmake)
+    configure_file("${INSTALL_SCRIPTS}/dependencies.cmake.in" "${INSTALL_SCRIPTS}/dependencies.cmake" @ONLY)
+    set(CPACK_PRE_BUILD_SCRIPTS ${INSTALL_SCRIPTS}/dependencies.cmake)
 endif()
 
 set(CPACK_GENERATOR "IFW")

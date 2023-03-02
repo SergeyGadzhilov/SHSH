@@ -36,6 +36,10 @@ file(GLOB_RECURSE PROJECT_SOURCES
     "*.qrc"
 )
 
+if(WIN32)
+    list(APPEND PROJECT_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/install/win/shshare.rc")
+endif()
+
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(SHShare
         MANUAL_FINALIZATION

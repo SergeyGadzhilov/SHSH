@@ -36,6 +36,10 @@ file(GLOB_RECURSE PROJECT_SOURCES
     "*.qrc"
 )
 
+if(WIN32)
+    list(APPEND PROJECT_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/install/win/shshare.rc")
+endif()
+
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(SHShare
         MANUAL_FINALIZATION
@@ -73,9 +77,7 @@ set_target_properties(SHShare PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
-install(TARGETS SHShare
-    BUNDLE DESTINATION .
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+include(install/install.cmake)
 
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(SHShare)

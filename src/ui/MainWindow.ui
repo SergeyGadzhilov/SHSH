@@ -77,31 +77,31 @@
   <customwidget>
    <class>shshare::widgets::SideBar</class>
    <extends>QWidget</extends>
-   <header>widgets/sidebar/SideBar.h</header>
+   <header>ui/widgets/sidebar/SideBar.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>shshare::pages::About</class>
    <extends>QWidget</extends>
-   <header>pages/About.h</header>
+   <header>ui/pages/About.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>shshare::pages::Settings</class>
    <extends>QWidget</extends>
-   <header>pages/Settings.h</header>
+   <header>ui/pages/Settings.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>shshare::pages::Uploads</class>
    <extends>QWidget</extends>
-   <header>pages/Uploads.h</header>
+   <header>ui/pages/Uploads.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>shshare::pages::Downloads</class>
    <extends>QWidget</extends>
-   <header>pages/Downloads.h</header>
+   <header>ui/pages/Downloads.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

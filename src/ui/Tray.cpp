@@ -52,7 +52,7 @@ QAction *Tray::createAction(const QString& name, std::function<void()> method)
     return action;
 }
 
-QAction *Tray::createAction(QIcon &icon, const QString &name, std::function<void ()> method)
+QAction *Tray::createAction(QIcon icon, const QString &name, std::function<void ()> method)
 {
     auto action = new QAction(icon, name, this);
     connect(action, &QAction::triggered, this, method);

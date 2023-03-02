@@ -64,7 +64,7 @@ void DownloadDir::operator =(const QString &value)
 
 QString DownloadDir::getDefaultDownloadPath() const
 {
-    constexpr char* name = "SHShare";
+    QString name("SHShare");
 
 #if defined (Q_OS_WIN)
     return

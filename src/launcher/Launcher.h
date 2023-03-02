@@ -21,7 +21,7 @@
 #include <QObject>
 #include <QApplication>
 #include <QtNetwork/QLocalServer>
-#include "ui/mainwindow.h"
+#include "ui/MainWindow.h"
 
 class Launcher : public QObject
 {

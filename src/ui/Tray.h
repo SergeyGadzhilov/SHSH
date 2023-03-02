@@ -38,7 +38,7 @@ private:
     void addAction();
     void initMenu();
     QAction* createAction(const QString& name, std::function<void()> method);
-    QAction* createAction(QIcon& icon, const QString& name, std::function<void()> method);
+    QAction* createAction(QIcon icon, const QString& name, std::function<void()> method);
 
     QWidget* m_window{nullptr};
 };

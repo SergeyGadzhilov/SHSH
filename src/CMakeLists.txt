@@ -40,6 +40,13 @@ if(WIN32)
     list(APPEND PROJECT_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/install/win/shshare.rc")
 endif()
 
+if(APPLE)
+    set(MACOSX_BUNDLE_ICON_FILE logo.icns)
+    set(APP_ICON_MACOSX ${CMAKE_CURRENT_SOURCE_DIR}/install/mac/logo.icns)
+    set_source_files_properties(${APP_ICON_MACOSX} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
+    list(APPEND PROJECT_SOURCES ${APP_ICON_MACOSX})
+endif()
+
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(SHShare
         MANUAL_FINALIZATION
@@ -70,7 +77,8 @@ target_link_libraries(SHShare PRIVATE
 )
 
 set_target_properties(SHShare PROPERTIES
-    MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
+    MACOSX_BUNDLE_ICON_FILE logo.icns
+    MACOSX_BUNDLE_GUI_IDENTIFIER my.shshare.com
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     MACOSX_BUNDLE TRUE

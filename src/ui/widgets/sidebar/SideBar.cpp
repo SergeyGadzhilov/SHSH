@@ -69,13 +69,13 @@ void SideBar::resetAllButtons()
 void SideBar::addButton(sidebar::Button& button, pages::Page page)
 {
     connect(&button, &sidebar::Button::clicked, this, [this, &button, page](){
-        activateButton(button, page);
+        activateButton(button);
         emit openPage(page);
     });
     m_layout.addWidget(&button);
 }
 
-void SideBar::activateButton(sidebar::Button &button, pages::Page page)
+void SideBar::activateButton(sidebar::Button &button)
 {
     resetAllButtons();
     button.activate();

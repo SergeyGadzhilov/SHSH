@@ -27,7 +27,7 @@
 #include "settings/Settings.h"
 
 #include "MainWindow.h"
-#include "ui_mainwindow.h"
+#include "ui_MainWindow.h"
 #include "DestinationDialog.h"
 #include "ui/pages/Uploads.h"
 #include "ui/pages/Downloads.h"

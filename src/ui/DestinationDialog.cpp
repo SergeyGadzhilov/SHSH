@@ -17,7 +17,7 @@
 */
 #include <QMessageBox>
 #include "DestinationDialog.h"
-#include "ui_destinationdialog.h"
+#include "ui_DestinationDialog.h"
 
 #include "core/Host.h"
 #include "ui/models/HostList.h"

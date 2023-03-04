@@ -25,7 +25,7 @@ private:
     void addSpacer();
     void resetAllButtons();
     void addButton(sidebar::Button& button, pages::Page page);
-    void activateButton(sidebar::Button& button, pages::Page page);
+    void activateButton(sidebar::Button& button);
 
     sidebar::Button m_about;
     sidebar::Button m_uploads;

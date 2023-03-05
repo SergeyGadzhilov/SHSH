@@ -1,11 +1,21 @@
+set(SHSH_NAME "SHShare")
+set(SHSH_DESCRIPTION "SHShare is a file sharing tool to transfer files over local network")
+set(SHSH_PACKAGE_TYPE "deb" CACHE STRING "Linux package rpm or deb")
+
 install(FILES install/linux/SHShare.desktop DESTINATION share/applications)
 install(FILES install/linux/shshare.svg DESTINATION share/icons/hicolor/scalable/apps)
 
-set(CPACK_GENERATOR "DEB")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "SHShare")
-
-set(CPACK_DEBIAN_PACKAGE_DESCRIPTION "SHShare")
-set(CPACK_DEBIAN_PACKAGE_MAINTAINER "gadzhilov.sergey@gmail.com")
-set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
+if(${SHSH_PACKAGE_TYPE} MATCHES "rpm")
+    set(CPACK_GENERATOR "RPM")
+    set(CPACK_PACKAGE_DESCRIPTION_SUMMARY ${SHSH_NAME})
+    set(CPACK_RPM_PACKAGE_NAME ${SHSH_NAME})
+    set(CPACK_RPM_PACKAGE_DESCRIPTION ${SHSH_DESCRIPTION})
+else()
+    set(CPACK_GENERATOR "DEB")
+    set(CPACK_PACKAGE_DESCRIPTION_SUMMARY ${SHSH_NAME})
+    set(CPACK_DEBIAN_PACKAGE_DESCRIPTION ${SHSH_DESCRIPTION})
+    set(CPACK_DEBIAN_PACKAGE_MAINTAINER "gadzhilov.sergey@gmail.com")
+    set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
+endif()
 
 include(CPack)

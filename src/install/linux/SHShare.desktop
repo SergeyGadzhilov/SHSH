@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=0.0.1
+Name=SHShare
+Comment=LAN share files
+Path=/usr/bin
+Exec=/usr/bin/SHShare
+Icon=shshare
+Terminal=false
+Categories=Utility
+Keywords=sharing;share;network;lan;

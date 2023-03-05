@@ -10,3 +10,7 @@ endif()
 if(APPLE)
     include(install/mac/mac.cmake)
 endif()
+
+if(UNIX AND NOT APPLE)
+   include(install/linux/linux.cmake)
+endif()

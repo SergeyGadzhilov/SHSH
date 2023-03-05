@@ -1,6 +1,0 @@
-set(DEPLOYQT "@DEPLOYQT@")
-set(BINARIES "SHShare/data/bin/SHShare")
-set(CMAKE_CURRENT_SOURCE_DIR "@CMAKE_CURRENT_SOURCE_DIR@")
-set(PACKAGES "${CPACK_TEMPORARY_INSTALL_DIRECTORY}/packages")
-
-execute_process(COMMAND ${DEPLOYQT} ${BINARIES} -appimage -unsupported-allow-new-glibc -qmldir=${CMAKE_CURRENT_SOURCE_DIR} WORKING_DIRECTORY ${PACKAGES})

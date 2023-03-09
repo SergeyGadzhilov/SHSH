@@ -143,7 +143,6 @@ void MainWindow::onSendFolderActionTriggered()
 {
     QStringList dirs;
     QFileDialog fDialog(this);
-    fDialog.setOption(QFileDialog::DontUseNativeDialog, true);
     fDialog.setFileMode(QFileDialog::Directory);
     fDialog.setOption(QFileDialog::ShowDirsOnly);
 
@@ -207,7 +206,7 @@ void MainWindow::quitApp()
 
 void MainWindow::setupSidebar()
 {
-    connect(ui->sidebar, &SideBar::openPage,    this, &MainWindow::openPage);
+    connect(ui->sidebar, &SideBar::openPage, this, &MainWindow::openPage);
     connect(ui->uploads, &shshare::pages::Uploads::sendFile, this, &MainWindow::onSendFilesActionTriggered);
     connect(ui->uploads, &shshare::pages::Uploads::sendFolder, this, &MainWindow::onSendFolderActionTriggered);
 

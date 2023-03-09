@@ -18,6 +18,7 @@
 #include <QLabel>
 #include <QFile>
 #include <QHBoxLayout>
+#include <QScrollBar>
 
 #include "About.h"
 #include "settings/Settings.h"
@@ -59,7 +60,10 @@ QLabel* About::description()
 QLabel* About::author()
 {
     auto author = new QLabel(this);
-    author->setText("Author: Hadzhilov Serhii (gadzhilovsergey@gmail.com)");
+    author->setStyleSheet(
+        "margin-bottom: 20px"
+    );
+    author->setText("Author: Hadzhilov Serhii (gadzhilov.sergey@gmail.com)");
     return author;
 }
 
@@ -67,8 +71,12 @@ QTextEdit* About::license()
 {
     QFile file(":/text/gpl-3.0.txt");
     file.open(QIODevice::ReadOnly);
+
     auto license = new QTextEdit(this);
     license->setText(file.readAll());
+    license->verticalScrollBar()->setStyleSheet(
+        "background-color: #1E293B;"
+    );
 
     return license;
 }

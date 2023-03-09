@@ -141,7 +141,6 @@ void MainWindow::onSendFilesActionTriggered()
 
 void MainWindow::onSendFolderActionTriggered()
 {
-    QStringList dirs;
     QFileDialog fDialog(this);
     fDialog.setFileMode(QFileDialog::Directory);
     fDialog.setOption(QFileDialog::ShowDirsOnly);
@@ -158,7 +157,7 @@ void MainWindow::onSendFolderActionTriggered()
     }
 
     QVector< QPair<QString, QString> > pairs;
-    dirs = fDialog.selectedFiles();
+    auto dirs = fDialog.selectedFiles();
     for (const auto& dirName : qAsConst(dirs)) {
         QDir dir(dirName);
         QVector< QPair<QString, QString> > ps = getInnerDirNameAndFullFilePath(dir, dir.dirName());

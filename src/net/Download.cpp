@@ -94,9 +94,9 @@ void Download::processDataPacket(QByteArray& data)
 
 void Download::processFinishPacket()
 {
+    mInfo->finish();
     mFile->close();
     mSocket->disconnectFromHost();
-    mInfo->finish();
 }
 
 void Download::processCancelPacket()

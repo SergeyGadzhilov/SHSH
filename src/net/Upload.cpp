@@ -114,10 +114,8 @@ bool Upload::openFile()
     return isOpened;
 }
 
-void Upload::onBytesWritten(qint64 bytes)
+void Upload::onBytesWritten(qint64)
 {
-    Q_UNUSED(bytes);
-
     if (!mSocket->bytesToWrite()) {
         sendData();
     }
@@ -125,9 +123,9 @@ void Upload::onBytesWritten(qint64 bytes)
 
 void Upload::finish()
 {
-    writePacket(0, PacketType::Finish, QByteArray());
     mFile->close();
     mInfo->finish();
+    writePacket(0, PacketType::Finish, QByteArray());
 }
 
 void Upload::sendData()
@@ -151,7 +149,7 @@ void Upload::sendData()
         m_bytesRemaining = 0;
     }
 
-    mInfo->setProgress( (int) ((m_size-m_bytesRemaining) * 100 / m_size) );
+    mInfo->setProgress(static_cast<int>((m_size - m_bytesRemaining) * 100 / m_size));
 
     writePacket(m_buffSize, PacketType::Data, m_buffer);
 

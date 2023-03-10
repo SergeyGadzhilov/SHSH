@@ -134,13 +134,11 @@ void ConnectionInfo::disconnect(const QString& error)
 void ConnectionInfo::finish()
 {
     setState(ConnectionStateID::Finish);
-    emit done();
 }
 
 void ConnectionInfo::transfer()
 {
     setState(ConnectionStateID::Transfering);
-    emit fileOpened();
 }
 
 void ConnectionInfo::error(const QString &error)
@@ -208,7 +206,7 @@ void ConnectionInfo::updateState(const ConnectionStateID &state)
     if (m_State != state) {
         m_LastState = m_State;
         m_State = state;
-        emit stateChanged(m_State);
+        emit stateChanged();
     }
 }
 

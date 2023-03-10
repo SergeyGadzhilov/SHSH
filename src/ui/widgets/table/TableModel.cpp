@@ -112,18 +112,18 @@ void TableModel::insert(Connection* connection)
         emit dataChanged(QAbstractTableModel::index(1, 0), index(m_Connections.size() - 1, Column::Count));
 
         auto info = connection->getConnectionInfo();
-        connect(info, &ConnectionInfo::fileOpened, this, [=]() {
+
+        connect(info, &ConnectionInfo::stateChanged, this, [=]() {
             int idx = m_Connections.indexOf(info->getOwner());
-            auto fNameIdx = index(idx, Column::FileName);
-            auto fSizeIdx = index(idx, Column::FileSize);
-            emit dataChanged(fNameIdx, fSizeIdx);
+            auto fNameIdx = index(idx, Column::Peer);
+            auto stateIdx = index(idx, Column::State);
+            emit dataChanged(fNameIdx, stateIdx);
         });
 
-        connect(info, &ConnectionInfo::stateChanged, this, [=](ConnectionStateID state) {
-            Q_UNUSED(state);
+        connect(info, &ConnectionInfo::progressChanged, this, [=]() {
             int idx = m_Connections.indexOf(info->getOwner());
-            auto stateIdx = index(idx, Column::State);
-            emit dataChanged(stateIdx, stateIdx);
+            auto progress = index(idx, Column::Progress);
+            emit dataChanged(progress, progress);
         });
     }
 }

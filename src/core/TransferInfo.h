@@ -70,11 +70,9 @@ public:
     bool isFinished() const;
 
 signals:
-    void done();
     void errorOcurred(const QString& errStr);
     void progressChanged(int progress);
-    void fileOpened();
-    void stateChanged(ConnectionStateID state);
+    void stateChanged();
 
 private:
     void updateState(const ConnectionStateID& state);

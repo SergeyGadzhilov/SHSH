@@ -79,7 +79,7 @@ void Download::processHeaderPacket(QByteArray& data)
     m_fileSize = obj.value("size").toVariant().value<qint64>();
     mInfo->setDataSize(m_fileSize);
 
-    createFile(folder, file);
+    createFile(QDir::toNativeSeparators(folder), file);
 }
 
 void Download::processDataPacket(QByteArray& data)

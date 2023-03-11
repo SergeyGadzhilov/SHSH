@@ -18,6 +18,7 @@
 #ifndef DOWNLOADDIR_H
 #define DOWNLOADDIR_H
 
+#include <QDir>
 #include "settings/ISetting.h"
 
 class DownloadDir : public ISetting
@@ -37,7 +38,7 @@ public:
 private:
     QString getDefaultDownloadPath() const;
 
-    QString m_dir;
+    QDir m_dir;
 };
 
 #endif // DOWNLOADDIR_H

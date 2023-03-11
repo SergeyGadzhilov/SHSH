@@ -4,8 +4,18 @@
     padding: 0px;
 }
 
-MainWindow {
+MainWindow,
+DestinationDialog{
     background-color: #1E293B;
+}
+
+#btnReceiverSend,
+#btnReceiverCancel {
+    padding: 5px;
+    width: 80;
+    height: 30;
+    font-family: "Roboto";
+    font-size: 9pt;
 }
 
 QLabel {

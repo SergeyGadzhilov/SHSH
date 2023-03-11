@@ -34,6 +34,8 @@ void registerFonts() {
 
 int main(int argc, char *argv[])
 {
+    QApplication::setAttribute(Qt::AA_DisableWindowContextHelpButton);
+
     QApplication app(argc, argv);
     app.setQuitOnLastWindowClosed(false);
     app.setApplicationName(::shshare::Settings::AppName());

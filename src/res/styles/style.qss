@@ -5,11 +5,13 @@
 }
 
 MainWindow,
-DestinationDialog{
+DestinationDialog,
+QMessageBox{
     background-color: #1E293B;
 }
 
 #btnReceiverSend,
+QDialogButtonBox > QPushButton,
 #btnReceiverCancel {
     padding: 5px;
     width: 80px;

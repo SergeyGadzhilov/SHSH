@@ -56,9 +56,9 @@ private:
     void setupSidebar();
     void setupTrayIcon();
 
-    void selectReceiversAndSendTheFiles(QVector<QPair<QString, QString> > dirNameAndFullPath);
-    QVector< QPair<QString, QString> >getInnerDirNameAndFullFilePath(const QDir& startingDir,
-                                                                     const QString& innerDirName);
+    void selectReceiversAndSendTheFiles(const QStringList& files);
+    void send(const Host& receiver, const QFileInfo path);
+    void sendFile(const Host& receiver, const QString& folder, const QString& file);
 
     bool mForceQuit{false};
     Ui::MainWindow *ui{nullptr};

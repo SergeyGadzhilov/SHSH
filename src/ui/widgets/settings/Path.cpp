@@ -16,7 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
+#include <QDir>
 #include <QLabel>
 #include <QCursor>
 #include <QLineEdit>
@@ -26,12 +26,13 @@
 #include "Path.h"
 #include "Spacer.h"
 
+
 namespace shshare::widgets::settings {
 
 Path::Path(const QString& title, const QString& value, QWidget *parent)
     : StyledWidget{parent}
     , m_layout{this}
-    , m_edit{value}
+    , m_edit{QDir::toNativeSeparators(value)}
 {
     m_layout.setMargin(0);
     m_layout.setSpacing(0);
@@ -46,7 +47,7 @@ Path::Path(const QString& title, const QString& value, QWidget *parent)
 
 void Path::setValue(const QString &value)
 {
-    m_edit.setText(value);
+    m_edit.setText(QDir::toNativeSeparators(value));
 }
 
 void Path::onOpen()
@@ -57,7 +58,7 @@ void Path::onOpen()
 
     if (dialog.exec()) {
         auto dir = dialog.selectedFiles();
-        m_edit.setText(dir[0]);
+        setValue(dir[0]);
     }
 }
 

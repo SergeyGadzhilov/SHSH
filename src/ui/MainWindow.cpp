@@ -21,6 +21,7 @@
 #include <QCloseEvent>
 #include <QListView>
 #include <QTreeView>
+#include <QDirIterator>
 
 #include "net/Upload.h"
 #include "net/Download.h"
@@ -103,7 +104,7 @@ void MainWindow::setupServer()
     connect(m_server, &Server::newReceiverAdded, ui->downloads, &shshare::pages::Downloads::insert);
 }
 
-void MainWindow::selectReceiversAndSendTheFiles(QVector<QPair<QString, QString> > dirNameAndFullPath)
+void MainWindow::selectReceiversAndSendTheFiles(const QStringList& paths)
 {
     DestinationDialog dialog(m_hosts);
     if (dialog.exec() == QDialog::Accepted) {
@@ -111,14 +112,35 @@ void MainWindow::selectReceiversAndSendTheFiles(QVector<QPair<QString, QString> 
         for (const auto& receiver : receivers) {
             if (receiver.isValid()) {
                 m_broadcaster.send();
-                for (const auto& p : dirNameAndFullPath) {
-                    auto sender = new Upload(receiver, p.first, p.second, this);
-                    sender->start();
-                    ui->uploads->insert(sender);
+                for (const auto& path : paths) {
+                    send(receiver, path);
                 }
             }
         }
     }
+}
+
+void MainWindow::send(const Host &receiver, const QFileInfo path)
+{
+    if (path.isDir()) {
+        const auto filter = QDir::NoDotAndDotDot | QDir::Files;
+        QDirIterator it(path.absoluteFilePath(), filter, QDirIterator::Subdirectories);
+        while(it.hasNext()) {
+            const auto file = it.next();
+            const QFileInfo dir{path.dir().relativeFilePath(file)};
+            sendFile(receiver, dir.path(), file);
+        }
+    }
+    else {
+        sendFile(receiver, "", path.absoluteFilePath());
+    }
+}
+
+void MainWindow::sendFile(const Host &receiver, const QString &folder, const QString &file)
+{
+    auto sender = new Upload(receiver, folder, file, this);
+    sender->start();
+    ui->uploads->insert(sender);
 }
 
 void MainWindow::onShowMainWindowTriggered()
@@ -128,15 +150,10 @@ void MainWindow::onShowMainWindowTriggered()
 
 void MainWindow::onSendFilesActionTriggered()
 {
-    QStringList fileNames = QFileDialog::getOpenFileNames(this, tr("Select files"));
-    if (fileNames.size() <= 0)
-        return;
-
-    QVector<QPair<QString, QString> > pairs;
-    for (const auto& fName : fileNames)
-        pairs.push_back( QPair<QString, QString>("", fName) );
-
-    selectReceiversAndSendTheFiles(pairs);
+    auto selected = QFileDialog::getOpenFileNames(this, tr("Select files"));
+    if (!selected.empty()) {
+        selectReceiversAndSendTheFiles(selected);
+    }
 }
 
 void MainWindow::onSendFolderActionTriggered()
@@ -152,44 +169,12 @@ void MainWindow::onSendFolderActionTriggered()
     if (tView)
         tView->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
-    if (!fDialog.exec()) {
-        return;
+    if (fDialog.exec()) {
+        auto dirs = fDialog.selectedFiles();
+        if (!dirs.empty()) {
+            selectReceiversAndSendTheFiles(dirs);
+        }
     }
-
-    QVector< QPair<QString, QString> > pairs;
-    auto dirs = fDialog.selectedFiles();
-    for (const auto& dirName : qAsConst(dirs)) {
-        QDir dir(dirName);
-        QVector< QPair<QString, QString> > ps = getInnerDirNameAndFullFilePath(dir, dir.dirName());
-        pairs.append(ps);
-    }
-
-    selectReceiversAndSendTheFiles(pairs);
-}
-
-QVector< QPair<QString, QString> >
-    MainWindow::getInnerDirNameAndFullFilePath(const QDir& startingDir, const QString& innerDirName)
-{
-    QVector< QPair<QString, QString> > pairs;
-
-    QFileInfoList fiList = startingDir.entryInfoList(QDir::NoDotAndDotDot | QDir::Files);
-    for (const auto& fi : fiList)
-        pairs.push_back( QPair<QString, QString>(innerDirName, fi.filePath()) );
-
-    fiList = startingDir.entryInfoList(QDir::NoDotAndDotDot | QDir::Dirs);
-    for (const auto& fi : qAsConst(fiList)) {
-        QString newInnerDirName;
-        if (innerDirName.isEmpty())
-            newInnerDirName = fi.fileName();
-        else
-            newInnerDirName = innerDirName + QDir::separator() + fi.fileName();
-
-        auto otherPairs = getInnerDirNameAndFullFilePath(QDir(fi.filePath()), newInnerDirName);
-
-        pairs.append(otherPairs);
-    }
-
-    return pairs;
 }
 
 void MainWindow::openPage(shshare::pages::Page page)

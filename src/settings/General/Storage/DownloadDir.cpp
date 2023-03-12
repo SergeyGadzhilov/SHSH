@@ -22,7 +22,7 @@
 
 DownloadDir::DownloadDir()
 {
-    m_dir = getDefaultDownloadPath();
+    m_dir.setPath(getDefaultDownloadPath());
 }
 
 const char* DownloadDir::name() const
@@ -34,32 +34,28 @@ void DownloadDir::load(const QSettings &storage)
 {
     const auto& dir = storage.value(name(), getDefaultDownloadPath()).toString();
     if (!dir.isEmpty() && QDir(dir).exists()) {
-        m_dir = dir;
+        m_dir.setPath(dir);
     }
 }
 
 void DownloadDir::save(QSettings &storage) const
 {
-    storage.setValue(name(), m_dir);
+    storage.setValue(name(), m_dir.absolutePath());
 }
 
 void DownloadDir::reset()
 {
-    m_dir = getDefaultDownloadPath();
+    m_dir.setPath(getDefaultDownloadPath());
 }
 
 DownloadDir::operator QString() const
 {
-    if (!QDir(m_dir).exists()) {
-        QDir().mkpath(m_dir);
-    }
-
-    return m_dir;
+    return QDir::toNativeSeparators(m_dir.absolutePath());
 }
 
 void DownloadDir::operator =(const QString &value)
 {
-    m_dir = value;
+    m_dir.setPath(value);
 }
 
 QString DownloadDir::getDefaultDownloadPath() const

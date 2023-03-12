@@ -16,7 +16,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "Broadcast.h"
-#include <iostream>
 
 BroadcastSettings::BroadcastSettings(Group *parent) :
     Group(parent)

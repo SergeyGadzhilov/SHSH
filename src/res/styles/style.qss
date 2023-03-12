@@ -12,10 +12,9 @@ DestinationDialog{
 #btnReceiverSend,
 #btnReceiverCancel {
     padding: 5px;
-    width: 80;
-    height: 30;
-    font-family: "Roboto";
-    font-size: 9pt;
+    width: 80px;
+    height: 30px;
+    font-size: 14px;
 }
 
 QLabel {
@@ -74,7 +73,7 @@ QHeaderView::section {
     color: #94A3B8;
     padding-top: 10;
     padding-left: 5;
-    font: 10pt;
+    font: 16px;
     font-weight: bold;
     border-top: 1px solid #334155;
     border-bottom: 1px solid #334155;

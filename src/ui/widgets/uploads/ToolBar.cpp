@@ -42,6 +42,7 @@ void ToolBar::addButton(const QIcon& icon, std::function<void ()> method)
     auto button = new QPushButton(this);
     button->setFlat(true);
     button->setIcon(icon);
+    button->setIconSize(QSize(20, 20));
     button->setCursor(QCursor(Qt::PointingHandCursor));
     connect(button, &QPushButton::clicked, this, method);
     m_layout.addWidget(button);

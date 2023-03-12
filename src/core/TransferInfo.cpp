@@ -149,7 +149,7 @@ void ConnectionInfo::error(const QString &error)
 
 void ConnectionInfo::setPeer(const Host& peer)
 {
-    m_Peer = std::move(peer);
+    m_Peer = peer;
 }
 
 void ConnectionInfo::setState(ConnectionStateID state)

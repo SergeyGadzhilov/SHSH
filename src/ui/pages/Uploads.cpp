@@ -30,6 +30,7 @@ Uploads::Uploads(QWidget *parent)
     m_layout.setMargin(25);
     m_layout.addWidget(new widgets::page::Title("Uploads"));
     initToolbar();
+    m_table.setColumnName(0, tr("Destination"));
     m_layout.addWidget(&m_table);
 }
 

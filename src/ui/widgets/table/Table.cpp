@@ -92,13 +92,18 @@ void Table::resumeSelected()
 
 QString Table::getSelectedFile()
 {
-    const auto index = m_model->index(currentIndex().row(), TableModel::Column::FileName);
+    const auto index = m_model->index(currentIndex().row(), TableModel::Column::Name);
     return m_model->data(index).toString();
 }
 
 ConnectionInfo *Table::getConnectionByPosition(const QPoint &pos)
 {
     return m_model->getConnectionInfo(indexAt(pos).row());
+}
+
+void Table::setColumnName(int column, const QString &name)
+{
+    m_model->setColumnName(static_cast<TableModel::Column>(column), name);
 }
 
 void Table::onSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected)

@@ -18,6 +18,7 @@
 #ifndef WIDGETS_CONNECTIONS_TABLEMODEL_H
 #define WIDGETS_CONNECTIONS_TABLEMODEL_H
 
+#include <QMap>
 #include <QColor>
 #include <QAbstractTableModel>
 
@@ -51,16 +52,24 @@ public:
     bool isAllFinished()const;
 
     enum class Column : int {
-        Peer = 0, FileName, FileSize, Progress, State,
+        Peer = 0, Name, Size, Progress, State,
         Count
     };
     QModelIndex index(int row, Column col) const;
+    void setColumnName(const Column& column, const QString& name);
 
 private:
     QString getStateString(ConnectionStateID state) const;
     QColor getStateColor(ConnectionStateID state) const;
 
     QVector<Connection*> m_Connections;
+    QMap<Column, QString> m_columns {
+        {Column::Peer, tr("Source")},
+        {Column::Name, tr("Name")},
+        {Column::Size, tr("Size")},
+        {Column::Progress, tr("Progress")},
+        {Column::State, tr("Status")}
+    };
 
 };
 

@@ -71,8 +71,8 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
             if (role == Qt::DisplayRole) {
                 switch (col) {
                 case Column::Peer : return info->getPeerName().c_str();
-                case Column::FileName : return info->getFilePath();
-                case Column::FileSize : return sizeToString(info->getDataSize());
+                case Column::Name : return info->getFilePath();
+                case Column::Size : return sizeToString(info->getDataSize());
                 case Column::State : return getStateString(info->getState());
                 case Column::Progress : return info->getProgress();
                 default : break;
@@ -90,13 +90,9 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
 QVariant TableModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole) {
-        switch (static_cast<Column>(section)) {
-        case Column::Peer : return tr("Source");
-        case Column::FileName : return tr("Name");
-        case Column::FileSize : return tr("Size");
-        case Column::Progress : return tr("Progress");
-        case Column::State : return tr("");
-        default : break; 
+        auto label = m_columns.find(static_cast<Column>(section));
+        if (label != m_columns.end()) {
+            return (*label);
         }
     }
 
@@ -211,7 +207,7 @@ QColor TableModel::getStateColor(ConnectionStateID state) const
     case ConnectionStateID::Paused : return QColor("orange");
     case ConnectionStateID::Cancelled : return QColor("red");
     case ConnectionStateID::Transfering : return QColor("blue");
-    case ConnectionStateID::Finish : return QColor("#22C55E");
+    case ConnectionStateID::Finish : return QColor(0x22C55E);
     }
 
     return QColor();
@@ -220,6 +216,11 @@ QColor TableModel::getStateColor(ConnectionStateID state) const
 QModelIndex TableModel::index(int row, Column col) const
 {
     return QAbstractTableModel::index(row, static_cast<int>(col));
+}
+
+void TableModel::setColumnName(const Column &column, const QString &name)
+{
+    m_columns[column] = name;
 }
 
 }// namespace shshare::widgets::connections

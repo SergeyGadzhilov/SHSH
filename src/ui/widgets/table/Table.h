@@ -41,6 +41,7 @@ public:
 
     QString getSelectedFile();
     ConnectionInfo* getConnectionByPosition(const QPoint& pos);
+    void setColumnName(int column, const QString& name);
 
 signals:
     void onSelected(const ConnectionInfo* connection);

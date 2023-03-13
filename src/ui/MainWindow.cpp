@@ -150,7 +150,7 @@ void MainWindow::onShowMainWindowTriggered()
 
 void MainWindow::onSendFilesActionTriggered()
 {
-    auto selected = QFileDialog::getOpenFileNames(this, tr("Select files"));
+    auto selected = QFileDialog::getOpenFileNames(this, tr("Select files"), QDir::homePath());
     if (!selected.empty()) {
         selectReceiversAndSendTheFiles(selected);
     }
@@ -159,6 +159,7 @@ void MainWindow::onSendFilesActionTriggered()
 void MainWindow::onSendFolderActionTriggered()
 {
     QFileDialog fDialog(this);
+    fDialog.setDirectory(QDir::homePath());
     fDialog.setFileMode(QFileDialog::Directory);
     fDialog.setOption(QFileDialog::ShowDirsOnly);
 

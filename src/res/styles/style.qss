@@ -127,8 +127,7 @@ QTabWidget QTabBar::tab {
     font-family: "Roboto";
     font-weight: bold;
     font-size: 16px;
-    padding: 5px;
-    padding-bottom: 20px;
+    padding: 20px 5px;
 }
 
 QTabWidget QTabBar::tab::selected{

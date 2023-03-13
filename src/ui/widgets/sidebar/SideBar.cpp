@@ -45,9 +45,10 @@ SideBar::SideBar(QWidget *parent)
 
 void SideBar::addLogo()
 {
+    QIcon icon(":/icons/logo.svg");
     auto logo = new QLabel(this);
     logo->setMargin(25);
-    logo->setPixmap(QPixmap(":/icons/logo.svg"));
+    logo->setPixmap(icon.pixmap(QSize(36, 36)));
     m_layout.addWidget(logo);
 }
 

@@ -1,2 +1,3 @@
 /src/CMakeLists.txt.user
 /src/install/win/dependencies.cmake
+src/install/mac/dependencies.cmake

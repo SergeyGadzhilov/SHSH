@@ -28,7 +28,7 @@ Table::Table(QWidget *parent) :
     setWordWrap(false);
     setFocusPolicy(Qt::NoFocus);
     verticalHeader()->setVisible(false);
-    horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    horizontalHeader()->setStretchLastSection(true);
     horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
     setSelectionBehavior(QAbstractItemView::SelectRows);
     setSelectionMode(QAbstractItemView::SingleSelection);

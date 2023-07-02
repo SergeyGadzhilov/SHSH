@@ -10,10 +10,7 @@ jobs:
         uses: actions/checkout@v3
  
       - name: Install QT
-        run: |
-          python3 -m pip install aqtinstall==0.11.1
-          aqt list 5.15.2 mac desktop
-          python3 -m aqt install 5.15.2 mac desktop -O /usr/local/opt/qt
+        run: brew install qt@5
 
       - name: Make release
         id: run-macos-build
@@ -24,7 +21,7 @@ jobs:
             -DCMAKE_INSTALL_PREFIX="./../install" \
             -DCMAKE_OSX_DEPLOYMENT_TARGET=11 \
             -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_PREFIX_PATH="/usr/local/opt/qt" ..
+            -DCMAKE_PREFIX_PATH="$(brew --prefix qt5)" ..
           make -j package
 
       - name: Upload artifacts

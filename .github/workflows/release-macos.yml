@@ -12,7 +12,7 @@ jobs:
       - name: Install QT
         run: |
           python3 -m pip install aqtinstall==0.11.1
-          python3 -m aqt install 5.15.10 mac desktop -O /usr/local/opt/qt
+          python3 -m aqt install 5.15 mac desktop -O /usr/local/opt/qt
 
       - name: Make release
         id: run-macos-build

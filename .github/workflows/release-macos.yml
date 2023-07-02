@@ -1,0 +1,33 @@
+name: Release macOS
+on: workflow_dispatch
+
+jobs:
+  release-macos:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+ 
+      - name: Install QT
+        run: |
+          python3 -m pip install aqtinstall==0.11.1 \
+          python3 -m aqt install 5.15.2 mac desktop -O /usr/local/opt/qt
+
+      - name: Make release
+        id: run-macos-build
+        run: |
+          mkdir build
+          cd build
+          cmake \
+            -DCMAKE_INSTALL_PREFIX="./../install" \
+            -DCMAKE_OSX_DEPLOYMENT_TARGET=11 \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_PREFIX_PATH="/usr/local/opt/qt" ..
+          make -j package
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: SHShare.dmg
+          path: install/pack/SHShare-0.0.1-Darwin.dmg

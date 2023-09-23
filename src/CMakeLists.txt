@@ -15,7 +15,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 cmake_minimum_required(VERSION 3.13)
 
-project(SHShare VERSION 0.0.1 LANGUAGES CXX)
+project(SHShare VERSION 0.1.0 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -66,9 +66,13 @@ else()
     else()
         add_executable(SHShare
             ${PROJECT_SOURCES}
+            config.h.in
         )
     endif()
 endif()
+
+configure_file(config.h.in config.h)
+include_directories(SHShare PUBLIC "${PROJECT_BINARY_DIR}")
 
 target_link_libraries(SHShare PRIVATE
     Qt${QT_VERSION_MAJOR}::Core

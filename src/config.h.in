@@ -1,0 +1,6 @@
+#ifndef CONFIG_H_IN
+#define CONFIG_H_IN
+
+#define SHSHARE_VERSION "@SHShare_VERSION_MAJOR@.@SHShare_VERSION_MINOR@.@SHShare_VERSION_PATCH@"
+
+#endif // CONFIG_H_IN

@@ -16,6 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "Settings.h"
+#include <config.h>
 
 namespace shshare {
 
@@ -39,7 +40,7 @@ NetworkSettings& Settings::network()
 
 const char* Settings::AppVersion()
 {
-    return "0.0.1";
+    return SHSHARE_VERSION;
 }
 
 const char* Settings::AppName()

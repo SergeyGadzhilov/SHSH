@@ -49,4 +49,5 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
+          name: SHShare.dmg
           path: install/pack/SHShare*.dmg

@@ -50,4 +50,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: SHShare.dmg
-          path: install/pack/SHShare-0.0.1-Darwin.dmg
+          path: install/pack/SHShare*.dmg

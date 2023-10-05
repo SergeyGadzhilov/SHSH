@@ -14,6 +14,10 @@ It can be used to transfer a whole folder, one or more files, large or small imm
 4. Automatic discovery of other machines
 5. Send to multiple receiver at the same time
 
+### Screenshots
+![screenshot](/docs/screenshots/screen1.png)
+![screenshot](/docs/screenshots/screen2.png)
+
 ### Contact & support
 
 Please be aware that the _only_ way to draw attention to a bug is to create

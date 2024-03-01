@@ -1,0 +1,32 @@
+name: Release Windows
+on: workflow_dispatch
+
+jobs:
+  release-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+        
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: 5.15
+          tools: 'tools_ifw'
+          cache: true
+
+      - name: Make release
+        id: run-windows-build
+        run: |
+          mkdir build; cd build
+          cmake -DCMAKE_INSTALL_PREFIX=".\\..\\install" -DCMAKE_BUILD_TYPE=Release -DCPACK_IFW_ROOT="$env:IQTA_TOOLS\\QtInstallerFramework\\4.6" ./..
+          cmake --build . --target PACKAGE --config Release
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: shshare-windows.exe
+          path: install/pack/SHShare*.exe

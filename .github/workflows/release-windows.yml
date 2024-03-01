@@ -21,10 +21,8 @@ jobs:
       - name: Make release
         id: run-windows-build
         run: |
-          dir "$env:IQTA_TOOLS";
-          dir "$env:IQTA_TOOLS\\QtInstallerFramework";
           mkdir build; cd build
-          cmake -DCMAKE_INSTALL_PREFIX=".\\..\\install" -DCMAKE_BUILD_TYPE=Release -DCPACK_IFW_ROOT="$env:IQTA_TOOLS\\QtInstallerFramework\\4.6" ./../src
+          cmake -DCMAKE_INSTALL_PREFIX=".\\..\\install" -DCMAKE_BUILD_TYPE=Release -DCPACK_IFW_ROOT="D:\\a\\SHSH\\Qt\\Tools\\\QtInstallerFramework\\4.7" ./../src
           cmake --build . --target PACKAGE --config Release
 
       - name: Upload artifacts

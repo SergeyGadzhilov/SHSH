@@ -23,7 +23,7 @@ jobs:
         id: run-linux-build
         run: |
           mkdir build; cd build
-          cmake -DCMAKE_BUILD_TYPE=Release -DSKVM_PACKAGE_TYPE=${{matrix.distro}} ./..
+          cmake -DCMAKE_BUILD_TYPE=Release -DSKVM_PACKAGE_TYPE=${{matrix.distro}} ./../src
           make package
 
       - name: Upload artifacts

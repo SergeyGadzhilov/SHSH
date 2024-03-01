@@ -1,0 +1,33 @@
+name: Release Linux
+on: workflow_dispatch
+
+jobs:
+  release-linux:
+    name: ${{matrix.distro}}
+    runs-on: ubuntu-latest
+    container: sgad/skvm:ubuntu
+
+    strategy:
+      matrix:
+        distro:
+          - deb
+          - rpm
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Make release
+        id: run-linux-build
+        run: |
+          mkdir build; cd build
+          cmake -DCMAKE_BUILD_TYPE=Release -DSKVM_PACKAGE_TYPE=${{matrix.distro}} ./..
+          make package
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: shshare-linux.${{matrix.distro}}
+          path: build/SHShare*.${{matrix.distro}}

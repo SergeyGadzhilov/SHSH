@@ -21,6 +21,7 @@ jobs:
       - name: Make release
         id: run-windows-build
         run: |
+          dir "D:\\a\\SHSH\\Qt\\Tool\\QtInstallerFramework";
           mkdir build; cd build
           cmake -DCMAKE_INSTALL_PREFIX=".\\..\\install" -DCMAKE_BUILD_TYPE=Release -DCPACK_IFW_ROOT="D:\\a\\SHSH\\Qt\\Tool\\QtInstallerFramework\\4.6" ./../src
           cmake --build . --target PACKAGE --config Release

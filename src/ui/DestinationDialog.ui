@@ -136,16 +136,6 @@
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QPushButton" name="btnReceiverSend">
-       <property name="text">
-        <string>Send</string>
-       </property>
-       <property name="default">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
     </layout>
    </item>
   </layout>
@@ -167,22 +157,6 @@
     <hint type="destinationlabel">
      <x>92</x>
      <y>236</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btnReceiverSend</sender>
-   <signal>clicked()</signal>
-   <receiver>ReceiverSelectorDialog</receiver>
-   <slot>onSendClicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>279</x>
-     <y>289</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>312</x>
-     <y>244</y>
     </hint>
    </hints>
   </connection>

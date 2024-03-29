@@ -21,6 +21,7 @@
 
 #include "core/Host.h"
 #include "ui/models/HostList.h"
+#include "ui/widgets/FilledButton.h"
 
 DestinationDialog::DestinationDialog(HostList* model, QWidget *parent) :
     QDialog(parent),
@@ -35,6 +36,10 @@ DestinationDialog::DestinationDialog(HostList* model, QWidget *parent) :
         "font-family: Roboto;"
         "font-size: 20px;"
     ));
+
+    auto sendButton = new shshare::widgets::FilledButton("Send", this);
+    connect(sendButton, &QPushButton::clicked, this, &DestinationDialog::onSendClicked);
+    ui->horizontalLayout->addWidget(sendButton);
 
     model->refresh();
 }

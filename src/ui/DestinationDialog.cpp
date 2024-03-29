@@ -31,6 +31,10 @@ DestinationDialog::DestinationDialog(HostList* model, QWidget *parent) :
 
     ui->listView->setModel(mModel);
     ui->listView->setCurrentIndex(QModelIndex());
+    ui->label->setStyleSheet(QString::fromUtf8(
+        "font-family: Roboto;"
+        "font-size: 20px;"
+    ));
 
     model->refresh();
 }

@@ -79,29 +79,6 @@
        </property>
       </spacer>
      </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_3">
-       <property name="toolTip">
-        <string>Refresh list</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="../res/res.qrc">
-         <normaloff>:/icons/refresh.svg</normaloff>:/icons/refresh.svg</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>18</width>
-         <height>18</height>
-        </size>
-       </property>
-       <property name="flat">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
     </layout>
    </item>
    <item>
@@ -136,24 +113,7 @@
  <resources>
   <include location="../res/res.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>pushButton_3</sender>
-   <signal>clicked()</signal>
-   <receiver>ReceiverSelectorDialog</receiver>
-   <slot>onRefreshClicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>268</x>
-     <y>21</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>219</x>
-     <y>14</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
  <slots>
   <slot>onSendClicked()</slot>
   <slot>onRefreshClicked()</slot>

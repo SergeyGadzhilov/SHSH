@@ -23,6 +23,7 @@
 #include "ui/models/HostList.h"
 #include "ui/widgets/FilledButton.h"
 #include "ui/widgets/OutlinedButton.h"
+#include "ui/widgets/IconButton.h"
 
 using namespace shshare::widgets;
 
@@ -37,7 +38,7 @@ DestinationDialog::DestinationDialog(HostList* model, QWidget *parent) :
     ui->listView->setCurrentIndex(QModelIndex());
     ui->label->setStyleSheet(QString::fromUtf8(
         "font-family: Roboto;"
-        "font-size: 20px;"
+        "font-size: 24px;"
     ));
 
     auto sendButton = new FilledButton("Send", this);
@@ -47,6 +48,13 @@ DestinationDialog::DestinationDialog(HostList* model, QWidget *parent) :
     auto cancelButton = new OutlinedButton("Cancel", this);
     connect(cancelButton, &OutlinedButton::clicked, this, &DestinationDialog::reject);
     ui->horizontalLayout->addWidget(cancelButton);
+
+    auto addReceiver = new IconButton(0xe05c);
+    ui->horizontalLayout_2->addWidget(addReceiver);
+
+    auto iconRefresh = new IconButton(0xe627);
+    connect(iconRefresh, &IconButton::clicked, this, &DestinationDialog::onRefreshClicked);
+    ui->horizontalLayout_2->addWidget(iconRefresh);
 
     model->refresh();
 }

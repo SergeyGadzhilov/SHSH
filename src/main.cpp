@@ -29,6 +29,7 @@ void loadStyleSheets(QApplication& app) {
 void registerFonts() {
     QFontDatabase::addApplicationFont(":/fonts/Roboto-Regular.ttf");
     QFontDatabase::addApplicationFont(":/fonts/Roboto-Bold.ttf");
+    QFontDatabase::addApplicationFont(":/fonts/MaterialIcons-Regular.ttf");
 }
 
 

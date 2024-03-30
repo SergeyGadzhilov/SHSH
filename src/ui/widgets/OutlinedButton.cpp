@@ -24,7 +24,7 @@ OutlinedButton::OutlinedButton(QString text, QWidget* parent) :
     this->setStyleSheet(QString::fromUtf8(
         "height: 36px;"
         "min-width: 112px;"
-        "padding: 3px;"
+        "padding: 2px;"
         "color: #FFFFFF;"
         "border: 1px solid #FFFFFF;"
         "background-color: transparent;"

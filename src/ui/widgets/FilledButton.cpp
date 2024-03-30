@@ -24,7 +24,7 @@ FilledButton::FilledButton(QString text, QWidget* parent) :
     this->setStyleSheet(QString::fromUtf8(
         "height: 36px;"
         "min-width: 112px;"
-        "padding: 5px;"
+        "padding: 2px;"
         "color: #1B293D;"
         "border: 1px solid #4DEB67;"
         "background-color: #4DEB67;"

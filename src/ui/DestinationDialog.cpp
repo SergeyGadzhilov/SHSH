@@ -22,6 +22,9 @@
 #include "core/Host.h"
 #include "ui/models/HostList.h"
 #include "ui/widgets/FilledButton.h"
+#include "ui/widgets/OutlinedButton.h"
+
+using namespace shshare::widgets;
 
 DestinationDialog::DestinationDialog(HostList* model, QWidget *parent) :
     QDialog(parent),
@@ -37,9 +40,13 @@ DestinationDialog::DestinationDialog(HostList* model, QWidget *parent) :
         "font-size: 20px;"
     ));
 
-    auto sendButton = new shshare::widgets::FilledButton("Send", this);
-    connect(sendButton, &QPushButton::clicked, this, &DestinationDialog::onSendClicked);
+    auto sendButton = new FilledButton("Send", this);
+    connect(sendButton, &FilledButton::clicked, this, &DestinationDialog::onSendClicked);
     ui->horizontalLayout->addWidget(sendButton);
+
+    auto cancelButton = new OutlinedButton("Cancel", this);
+    connect(cancelButton, &OutlinedButton::clicked, this, &DestinationDialog::reject);
+    ui->horizontalLayout->addWidget(cancelButton);
 
     model->refresh();
 }

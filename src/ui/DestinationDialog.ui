@@ -129,13 +129,6 @@
        </property>
       </spacer>
      </item>
-     <item>
-      <widget class="QPushButton" name="btnReceiverCancel">
-       <property name="text">
-        <string>Cancel</string>
-       </property>
-      </widget>
-     </item>
     </layout>
    </item>
   </layout>
@@ -144,22 +137,6 @@
   <include location="../res/res.qrc"/>
  </resources>
  <connections>
-  <connection>
-   <sender>btnReceiverCancel</sender>
-   <signal>clicked()</signal>
-   <receiver>ReceiverSelectorDialog</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>193</x>
-     <y>289</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>92</x>
-     <y>236</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>pushButton_3</sender>
    <signal>clicked()</signal>

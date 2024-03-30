@@ -14,26 +14,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "FilledButton.h"
+#ifndef OUTLINEDBUTTON_H
+#define OUTLINEDBUTTON_H
 
-namespace shshare::widgets {
+#include <QObject>
+#include <QPushButton>
 
-FilledButton::FilledButton(QString text, QWidget* parent) :
-    QPushButton(text, parent)
+namespace shshare::widgets
 {
-    this->setStyleSheet(QString::fromUtf8(
-        "height: 36px;"
-        "min-width: 112px;"
-        "padding: 5px;"
-        "color: #1B293D;"
-        "border: 1px solid #4DEB67;"
-        "background-color: #4DEB67;"
-        "border-radius: 5px;"
-        "font-family: Roboto;"
-        "font-size: 20px;"
-        "font-weight: bold;"
-    ));
-    this->setCursor(Qt::PointingHandCursor);
-}
+
+class OutlinedButton : public QPushButton
+{
+public:
+    OutlinedButton(QString text, QWidget* parent);
+};
 
 }
+
+#endif // OUTLINEDBUTTON_H

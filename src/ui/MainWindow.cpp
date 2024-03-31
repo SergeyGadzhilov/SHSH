@@ -24,7 +24,6 @@
 #include <QDirIterator>
 
 #include "net/Upload.h"
-#include "net/Download.h"
 #include "settings/Settings.h"
 
 #include "MainWindow.h"
@@ -39,8 +38,8 @@ using namespace shshare::widgets;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    m_broadcaster(this),
-    m_tray(this)
+    m_tray(this),
+    m_broadcaster(this)
 {
     ui->setupUi(this);
     setWindowTitle(::shshare::Settings::AppName());

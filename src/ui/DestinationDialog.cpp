@@ -21,42 +21,17 @@
 
 #include "core/Host.h"
 #include "ui/models/HostList.h"
-#include "ui/widgets/FilledButton.h"
-#include "ui/widgets/OutlinedButton.h"
-#include "ui/widgets/IconButton.h"
 
-using namespace shshare::widgets;
+using namespace shshare::ui;
 
 DestinationDialog::DestinationDialog(HostList* model, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::ReceiverSelectorDialog),
-    mModel(model)
+    ui(new Ui::ReceiverSelectorDialog)
 {
     ui->setupUi(this);
-
-    ui->listView->setModel(mModel);
-    ui->listView->setCurrentIndex(QModelIndex());
-    ui->label->setStyleSheet(QString::fromUtf8(
-        "font-family: Roboto;"
-        "font-size: 24px;"
-    ));
-
-    auto sendButton = new FilledButton("Send", this);
-    connect(sendButton, &FilledButton::clicked, this, &DestinationDialog::onSendClicked);
-    ui->horizontalLayout->addWidget(sendButton);
-
-    auto cancelButton = new OutlinedButton("Cancel", this);
-    connect(cancelButton, &OutlinedButton::clicked, this, &DestinationDialog::reject);
-    ui->horizontalLayout->addWidget(cancelButton);
-
-    auto addReceiver = new IconButton(0xe05c);
-    ui->horizontalLayout_2->addWidget(addReceiver);
-
-    auto iconRefresh = new IconButton(0xe627);
-    connect(iconRefresh, &IconButton::clicked, this, &DestinationDialog::onRefreshClicked);
-    ui->horizontalLayout_2->addWidget(iconRefresh);
-
-    model->refresh();
+    ui->SelectReceiverPage->SetModel(model);
+    connect(ui->SelectReceiverPage, &SelectReceiverPage::OnClose, this, &DestinationDialog::reject);
+    connect(ui->SelectReceiverPage, &SelectReceiverPage::OnSend, this, &DestinationDialog::accept);
 }
 
 DestinationDialog::~DestinationDialog()
@@ -64,42 +39,7 @@ DestinationDialog::~DestinationDialog()
     delete ui;
 }
 
-Host DestinationDialog::getSelectedHost() const
-{
-    QModelIndex currIndex = ui->listView->currentIndex();
-    if (currIndex.isValid()) {
-        return mModel->host(currIndex.row());
-    }
-
-    return Host();
-}
-
 QVector<Host> DestinationDialog::getSelectedHosts() const
 {
-    QVector<Host> hosts;
-    QItemSelectionModel* selModel = ui->listView->selectionModel();
-    if (selModel) {
-        QModelIndexList selected = selModel->selectedIndexes();
-        for (auto selectedIndex : selected) {
-            if (selectedIndex.isValid()) {
-                hosts.push_back(mModel->host(selectedIndex.row()));
-            }
-        }
-    }
-
-    return hosts;
-}
-
-void DestinationDialog::onSendClicked()
-{
-    QModelIndex currIndex = ui->listView->currentIndex();
-    if (currIndex.isValid())
-        accept();
-    else
-        QMessageBox::information(this, tr("Info"), tr("Please select receivers."));
-}
-
-void DestinationDialog::onRefreshClicked()
-{
-    mModel->refresh();
+    return ui->SelectReceiverPage->GetSelectedHosts();
 }

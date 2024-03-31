@@ -35,17 +35,10 @@ public:
     explicit DestinationDialog(HostList* model, QWidget *parent = nullptr);
     ~DestinationDialog() override;
 
-    Host getSelectedHost() const;
     QVector<Host> getSelectedHosts() const;
 
-private Q_SLOTS:
-    void onSendClicked();
-    void onRefreshClicked();
-
 private:
-    Ui::ReceiverSelectorDialog *ui;
-
-    HostList* mModel;
+    Ui::ReceiverSelectorDialog *ui = nullptr;
 };
 
 #endif // DESTINATION_DIALOG_H

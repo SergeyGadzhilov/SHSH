@@ -14,49 +14,36 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef SELECTRECEIVERPAGE_H
-#define SELECTRECEIVERPAGE_H
+#ifndef SHSHARE_UI_ENTERIPPAGE_H
+#define SHSHARE_UI_ENTERIPPAGE_H
 
-#include <QObject>
-#include <QListView>
+#include <QWidget>
 #include <QVBoxLayout>
-#include <ui/widgets/page/Page.h>
-#include <ui/models/HostList.h>
-
-using namespace shshare::widgets::page;
+#include "ui/widgets/IpAddress.h"
 
 namespace shshare::ui
 {
 
-class SelectReceiverPage : public Page
+class EnterIpPage : public QWidget
 {
-    Q_OBJECT;
-
+    Q_OBJECT
 public:
-    SelectReceiverPage(QWidget *parent = nullptr);
-    void SetModel(HostList* model);
-    QVector<Host> GetSelectedHosts() const;
+    explicit EnterIpPage(QWidget *parent = nullptr);
 
 signals:
+    void OnConnect();
     void OnClose();
-    void OnSend();
-    void OnAddReceiver();
-
-private slots:
-    void onRefreshClicked();
-    void onSendClicked();
 
 private:
     void initLayout();
     void initTitle();
-    void initReceiversList();
+    void initIpAddress();
     void initFooter();
 
-    HostList* m_model = nullptr;
+    shshare::widgets::IpAddress* m_address = nullptr;
     QVBoxLayout* m_layout = nullptr;
-    QListView* m_receivers = nullptr;
+
 };
 
 }
-
-#endif // SELECTRECEIVERPAGE_H
+#endif // SHSHARE_UI_ENTERIPPAGE_H

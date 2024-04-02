@@ -32,6 +32,12 @@ DestinationDialog::DestinationDialog(HostList* model, QWidget *parent) :
     ui->SelectReceiverPage->SetModel(model);
     connect(ui->SelectReceiverPage, &SelectReceiverPage::OnClose, this, &DestinationDialog::reject);
     connect(ui->SelectReceiverPage, &SelectReceiverPage::OnSend, this, &DestinationDialog::accept);
+    connect(ui->SelectReceiverPage, &SelectReceiverPage::OnAddReceiver, this, [this](){
+        ui->stackedWidget->setCurrentWidget(ui->EnterIp);
+    });
+    connect(ui->EnterIp, &EnterIpPage::OnClose, this, [this](){
+        ui->stackedWidget->setCurrentWidget(ui->SelectReceiverPage);
+    });
 }
 
 DestinationDialog::~DestinationDialog()

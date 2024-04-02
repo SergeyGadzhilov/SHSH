@@ -105,6 +105,7 @@ void SelectReceiverPage::initTitle()
     title->addSpacerItem(new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
     auto addReceiver = new IconButton(0xe05c);
+    connect(addReceiver, &IconButton::clicked, this, [this](){emit OnAddReceiver();});
     title->addWidget(addReceiver);
 
     auto iconRefresh = new IconButton(0xe627);
@@ -126,7 +127,7 @@ void SelectReceiverPage::initFooter()
 {
     auto footer = new QHBoxLayout();
     footer->setSpacing(20);
-    footer->setContentsMargins(-1, 0, -1, -1);
+    footer->setContentsMargins(40, 0, 40, 0);
     footer->addItem(new QSpacerItem(342, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
 
     auto sendButton = new FilledButton("Send", this);

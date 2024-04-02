@@ -59,8 +59,11 @@
    </property>
    <item>
     <widget class="QStackedWidget" name="stackedWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
      <widget class="shshare::ui::SelectReceiverPage" name="SelectReceiverPage"/>
-     <widget class="QWidget" name="page_2"/>
+     <widget class="shshare::ui::EnterIpPage" name="EnterIp"/>
     </widget>
    </item>
   </layout>
@@ -70,6 +73,12 @@
    <class>shshare::ui::SelectReceiverPage</class>
    <extends>QWidget</extends>
    <header>ui/DestinationDialog/SelectReceiverPage.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>shshare::ui::EnterIpPage</class>
+   <extends>QWidget</extends>
+   <header>ui/DestinationDialog/EnterIpPage.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

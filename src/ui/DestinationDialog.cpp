@@ -38,6 +38,12 @@ DestinationDialog::DestinationDialog(HostList* model, QWidget *parent) :
     connect(ui->EnterIp, &EnterIpPage::OnClose, this, [this](){
         ui->stackedWidget->setCurrentWidget(ui->SelectReceiverPage);
     });
+    connect(ui->EnterIp, &EnterIpPage::OnConnect, this, [this](){
+        ui->stackedWidget->setCurrentWidget(ui->SpinnerPage);
+    });
+    connect(ui->SpinnerPage, &SpinnerPage::OnClose, this, [this](){
+        ui->stackedWidget->setCurrentWidget(ui->EnterIp);
+    });
 }
 
 DestinationDialog::~DestinationDialog()

@@ -63,6 +63,7 @@
       <number>0</number>
      </property>
      <widget class="shshare::ui::SelectReceiverPage" name="SelectReceiverPage"/>
+     <widget class="shshare::ui::SpinnerPage" name="SpinnerPage"/>
      <widget class="shshare::ui::EnterIpPage" name="EnterIp"/>
     </widget>
    </item>
@@ -79,6 +80,12 @@
    <class>shshare::ui::EnterIpPage</class>
    <extends>QWidget</extends>
    <header>ui/DestinationDialog/EnterIpPage.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>shshare::ui::SpinnerPage</class>
+   <extends>QWidget</extends>
+   <header>ui/DestinationDialog/SpinnerPage.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

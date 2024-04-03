@@ -19,5 +19,6 @@
         <file>fonts/Roboto-Regular.ttf</file>
         <file>icons/refresh.svg</file>
         <file>fonts/MaterialIcons-Regular.ttf</file>
+        <file>img/spinner.gif</file>
     </qresource>
 </RCC>

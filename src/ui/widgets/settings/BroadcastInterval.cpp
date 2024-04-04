@@ -24,7 +24,7 @@ BroadcastInterval::BroadcastInterval(QWidget *parent)
     : Interval{"Broadcast interval", 0, parent}
 {
     setValue(::shshare::Settings::instance().getBroadcastInterval());
-    connect(this, &BroadcastInterval::onChanged, this, [this](int value){
+    connect(this, &BroadcastInterval::onChanged, this, [](int value){
         ::shshare::Settings::instance().setBroadcastInterval(value);
     });
 }

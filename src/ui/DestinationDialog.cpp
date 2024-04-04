@@ -22,17 +22,31 @@
 #include "core/Host.h"
 #include "ui/models/HostList.h"
 
+using namespace shshare::ui;
+
 DestinationDialog::DestinationDialog(HostList* model, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::ReceiverSelectorDialog),
-    mModel(model)
+    ui(new Ui::ReceiverSelectorDialog)
 {
     ui->setupUi(this);
-
-    ui->listView->setModel(mModel);
-    ui->listView->setCurrentIndex(QModelIndex());
-
-    model->refresh();
+    ui->SelectReceiverPage->SetModel(model);
+    connect(ui->SelectReceiverPage, &SelectReceiverPage::OnClose, this, &DestinationDialog::reject);
+    connect(ui->SelectReceiverPage, &SelectReceiverPage::OnSend, this, &DestinationDialog::accept);
+    connect(ui->SelectReceiverPage, &SelectReceiverPage::OnAddReceiver, this, [this](){
+        ui->stackedWidget->setCurrentWidget(ui->EnterIp);
+    });
+    connect(ui->EnterIp, &EnterIpPage::OnClose, this, [this](){
+        ui->stackedWidget->setCurrentWidget(ui->SelectReceiverPage);
+    });
+    connect(ui->EnterIp, &EnterIpPage::OnConnect, this, [this](){
+        ui->stackedWidget->setCurrentWidget(ui->SpinnerPage);
+    });
+    connect(ui->SpinnerPage, &SpinnerPage::OnClose, this, [this](){
+        ui->stackedWidget->setCurrentWidget(ui->EnterIp);
+    });
+    connect(ui->ErrorPage, &ErrorPage::OnClose, this, [this](){
+        ui->stackedWidget->setCurrentWidget(ui->EnterIp);
+    });
 }
 
 DestinationDialog::~DestinationDialog()
@@ -40,42 +54,7 @@ DestinationDialog::~DestinationDialog()
     delete ui;
 }
 
-Host DestinationDialog::getSelectedHost() const
-{
-    QModelIndex currIndex = ui->listView->currentIndex();
-    if (currIndex.isValid()) {
-        return mModel->host(currIndex.row());
-    }
-
-    return Host();
-}
-
 QVector<Host> DestinationDialog::getSelectedHosts() const
 {
-    QVector<Host> hosts;
-    QItemSelectionModel* selModel = ui->listView->selectionModel();
-    if (selModel) {
-        QModelIndexList selected = selModel->selectedIndexes();
-        for (auto selectedIndex : selected) {
-            if (selectedIndex.isValid()) {
-                hosts.push_back(mModel->host(selectedIndex.row()));
-            }
-        }
-    }
-
-    return hosts;
-}
-
-void DestinationDialog::onSendClicked()
-{
-    QModelIndex currIndex = ui->listView->currentIndex();
-    if (currIndex.isValid())
-        accept();
-    else
-        QMessageBox::information(this, tr("Info"), tr("Please select receivers."));
-}
-
-void DestinationDialog::onRefreshClicked()
-{
-    mModel->refresh();
+    return ui->SelectReceiverPage->GetSelectedHosts();
 }

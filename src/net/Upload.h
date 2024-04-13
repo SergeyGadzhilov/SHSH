@@ -42,6 +42,7 @@ private:
     bool openFile();
     void finish();
     void sendData();
+    void sendHandShake();
     void sendHeader();
 
     void processCancelPacket() override;

@@ -20,6 +20,7 @@
 #include <QJsonObject>
 
 #include "Upload.h"
+#include "net/Messages/HandShake.h"
 #include "settings/Settings.h"
 
 Upload::Upload(const Host& receiver, const QString& folder, const QString& file, QObject* parent) :
@@ -79,6 +80,7 @@ void Upload::cancel()
 void Upload::onConnected()
 {
     mInfo->transfer();
+    sendHandShake();
     sendHeader();
 }
 
@@ -156,6 +158,12 @@ void Upload::sendData()
     if (!m_bytesRemaining) {
         finish();
     }
+}
+
+void Upload::sendHandShake()
+{
+    HandShake message;
+    sendMessage(message);
 }
 
 void Upload::sendHeader()

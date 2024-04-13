@@ -19,15 +19,16 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 
+#include <iostream>
 #include "Download.h"
+#include "net/Messages/HandShake.h"
 #include "settings/Settings.h"
 
-Download::Download(const Host& sender, QTcpSocket* socket, QObject* parent)
+Download::Download(QTcpSocket* socket, QObject* parent)
     : Connection(socket, parent)
 {
     connect(mSocket, &QTcpSocket::disconnected, this, &Download::onDisconnected);
     mInfo->waiting();
-    mInfo->setPeer(sender);
 }
 
 void Download::onDisconnected()
@@ -105,6 +106,13 @@ void Download::processCancelPacket()
     mFile->remove();
     mSocket->disconnectFromHost();
     mInfo->cancel();
+}
+
+void Download::processHandShake(QByteArray& data)
+{
+    std::cout<<"Hand shake: "<<data.toStdString()<<std::endl;
+    HandShake message(data);
+    mInfo->setPeer(message.GetHost());
 }
 
 void Download::createFile(const QString& folder, const QString& file)

@@ -22,20 +22,10 @@
 #include <QTcpSocket>
 #include <QObject>
 
-#include "core/Host.h"
 #include "core/TransferInfo.h"
+#include "Messages/INetworkMessage.h"
 
-enum class PacketType : char
-{
-    Header = 0x01,
-    Data,
-    Finish,
-    Cancel,
-    Pause,
-    Resume
-};
-
-class ConnectionInfo;
+using namespace shshare::net::messages;
 
 class Connection : public QObject
 {
@@ -49,6 +39,8 @@ public:
     virtual void resume();
     virtual void pause();
     virtual void cancel();
+    virtual void sendMessage(const INetworkMessage& message);
+
     bool isFinished() const;
 
 protected:
@@ -62,6 +54,7 @@ protected:
     virtual void processCancelPacket();
     virtual void processPausePacket();
     virtual void processResumePacket();
+    virtual void processHandShake(QByteArray& data);
 
     virtual void writePacket(qint32 size, PacketType type, const QByteArray& data);
 
@@ -74,7 +67,6 @@ private Q_SLOTS:
 
 private:
     qint32 readSize(QByteArray& message);
-
 
     QByteArray m_buff;
     qint32 m_packetSize{-1};

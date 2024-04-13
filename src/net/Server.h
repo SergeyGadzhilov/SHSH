@@ -22,14 +22,13 @@
 #include <QObject>
 
 #include "net/Download.h"
-#include "ui/models/HostList.h"
 
 class Server : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit Server(HostList* hosts, QObject *parent = nullptr);
+    explicit Server(QObject *parent = nullptr);
     bool listen(const QHostAddress& addr = QHostAddress::Any);
 
 Q_SIGNALS:
@@ -39,7 +38,6 @@ private Q_SLOTS:
     void onNewConnection();
 
 private:
-    HostList* m_hosts{nullptr};
     QTcpServer m_server;
 };
 

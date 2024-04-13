@@ -39,6 +39,12 @@ void Connection::cancel()
 
 }
 
+void Connection::sendMessage(const INetworkMessage& message)
+{
+    auto data = message.Serialize();
+    writePacket(data.size(), message.Type(), data);
+}
+
 bool Connection::isFinished() const
 {
     auto state = mInfo->getState();
@@ -102,6 +108,7 @@ void Connection::processPacket(QByteArray &data, PacketType type)
     case PacketType::Cancel : processCancelPacket(); break;
     case PacketType::Pause : processPausePacket(); break;
     case PacketType::Resume : processResumePacket(); break;
+    case PacketType::HandShake: processHandShake(data); break;
     }
 }
 
@@ -128,6 +135,10 @@ void Connection::processPausePacket()
 }
 
 void Connection::processResumePacket()
+{
+}
+
+void Connection::processHandShake(QByteArray& data)
 {
 }
 

@@ -98,7 +98,7 @@ void MainWindow::setupServer()
 {
     m_broadcaster.start();
     m_hosts = new HostList(m_broadcaster, this);
-    m_server = new Server(m_hosts, this);
+    m_server = new Server(this);
     m_server->listen();
     connect(m_server, &Server::newReceiverAdded, ui->downloads, &shshare::pages::Downloads::insert);
 }

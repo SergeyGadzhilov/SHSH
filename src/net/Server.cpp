@@ -18,10 +18,9 @@
 #include "Server.h"
 #include "settings/Settings.h"
 
-Server::Server(HostList* hosts, QObject *parent) :
+Server::Server(QObject *parent) :
     QObject(parent)
 {
-    m_hosts = hosts;
     connect(&m_server, &QTcpServer::newConnection, this, &Server::onNewConnection);
 }
 
@@ -34,7 +33,6 @@ void Server::onNewConnection()
 {
     auto socket = m_server.nextPendingConnection();
     if (socket) {
-        const auto host = m_hosts->host(socket->peerAddress());
-        emit newReceiverAdded(new Download(host, socket));
+        emit newReceiverAdded(new Download(socket));
     }
 }

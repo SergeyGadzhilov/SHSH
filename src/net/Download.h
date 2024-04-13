@@ -18,13 +18,12 @@
 #ifndef RECEIVER_H
 #define RECEIVER_H
 
-#include "core/Host.h"
 #include "net/Connection.h"
 
 class Download : public Connection
 {
 public:
-    Download(const Host& sender, QTcpSocket* socket, QObject* parent = nullptr);
+    Download(QTcpSocket* socket, QObject* parent = nullptr);
 
 private Q_SLOTS:
     void onDisconnected();
@@ -34,6 +33,7 @@ private:
     void processDataPacket(QByteArray& data) override;
     void processFinishPacket() override;
     void processCancelPacket() override;
+    void processHandShake(QByteArray& data) override;
 
     void createFile(const QString& folderName, const QString& fileName);
     QString getUniqueFileName(const QString& fileName, const QString& folderPath);

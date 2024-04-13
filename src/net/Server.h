@@ -41,7 +41,6 @@ private Q_SLOTS:
 private:
     HostList* m_hosts{nullptr};
     QTcpServer m_server;
-    QVector<Download*> m_downloads;
 };
 
 #endif // SERVER_H

@@ -35,8 +35,6 @@ void Server::onNewConnection()
     auto socket = m_server.nextPendingConnection();
     if (socket) {
         const auto host = m_hosts->host(socket->peerAddress());
-        auto download = new Download(host, socket);
-        m_downloads.push_back(download);
-        emit newReceiverAdded(download);
+        emit newReceiverAdded(new Download(host, socket));
     }
 }

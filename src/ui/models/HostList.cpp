@@ -19,20 +19,18 @@
 #include "HostList.h"
 #include "settings/Settings.h"
 
-HostList::HostList(Broadcaster& broadcast, QObject* parent):
-    QAbstractListModel(parent),
-    m_Broadcast(broadcast)
+HostList::HostList(QObject* parent):
+    QAbstractListModel(parent)
 {
-    connect(&m_Broadcast, &Broadcaster::received, this, &HostList::onBroadcastReceived);
 }
 
-void HostList::onBroadcastReceived(const Host& sender)
+void HostList::AddHost(const Host& host)
 {
-    if (!isLocalHost(sender)) {
-        if (!host(sender.getId()).isValid()) {
+    if (!isLocalHost(host)) {
+        if (!GetHost(host.getId()).isValid()) {
             const auto size = static_cast<int>(m_Hosts.size());
             beginInsertRows(QModelIndex(), size, size);
-            m_Hosts.push_back(sender);
+            m_Hosts.push_back(host);
             endInsertRows();
         }
     }
@@ -111,7 +109,7 @@ void HostList::refresh()
     endResetModel();
 }
 
-Host HostList::host(int index) const
+Host HostList::GetHost(int index) const
 {
     if (index < 0 || index >= m_Hosts.size()) {
         return Host();
@@ -120,7 +118,7 @@ Host HostList::host(int index) const
     return m_Hosts.at(index);
 }
 
-Host HostList::host(const std::string& id) const
+Host HostList::GetHost(const std::string& id) const
 {
     for (auto& host : m_Hosts) {
         if (host.getId() == id) {
@@ -131,7 +129,7 @@ Host HostList::host(const std::string& id) const
     return Host();
 }
 
-Host HostList::host(const QHostAddress &address) const
+Host HostList::GetHost(const QHostAddress &address) const
 {
     for (auto& host : m_Hosts) {
         if (host.getAddress() == address) {

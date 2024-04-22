@@ -41,7 +41,11 @@ public:
     virtual void cancel();
     virtual void sendMessage(const INetworkMessage& message);
 
+    void GetHostInfo();
     bool isFinished() const;
+
+signals:
+    void HostInfo(Host host);
 
 protected:
     void clearReadBuffer();
@@ -54,6 +58,7 @@ protected:
     virtual void processCancelPacket();
     virtual void processPausePacket();
     virtual void processResumePacket();
+    virtual void processGetHostInfo();
     virtual void processHostInfo(QByteArray& data);
 
     virtual void writePacket(qint32 size, PacketType type, const QByteArray& data);

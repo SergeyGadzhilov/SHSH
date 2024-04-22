@@ -16,6 +16,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "Connection.h"
+#include <net/Messages/GetHostInfo.h>
+#include <net/Messages/HostInfo.h>
 
 Connection::Connection(QTcpSocket* socket, QObject* parent) :
     QObject(parent)
@@ -43,6 +45,12 @@ void Connection::sendMessage(const INetworkMessage& message)
 {
     auto data = message.Serialize();
     writePacket(data.size(), message.Type(), data);
+}
+
+void Connection::GetHostInfo()
+{
+    shshare::net::messages::GetHostInfo message;
+    sendMessage(message);
 }
 
 bool Connection::isFinished() const
@@ -109,6 +117,7 @@ void Connection::processPacket(QByteArray &data, PacketType type)
     case PacketType::Pause : processPausePacket(); break;
     case PacketType::Resume : processResumePacket(); break;
     case PacketType::HostInfo: processHostInfo(data); break;
+    case PacketType::GetHostInfo: processGetHostInfo(); break;
     }
 }
 
@@ -138,8 +147,15 @@ void Connection::processResumePacket()
 {
 }
 
+void Connection::processGetHostInfo()
+{
+    sendMessage(shshare::net::messages::HostInfo{});
+}
+
 void Connection::processHostInfo(QByteArray& data)
 {
+    shshare::net::messages::HostInfo message(data);
+    emit HostInfo(message.GetHost());
 }
 
 void Connection::clearReadBuffer()

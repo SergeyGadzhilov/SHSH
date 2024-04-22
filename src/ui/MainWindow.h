@@ -22,8 +22,7 @@
 
 #include "Tray.h"
 #include "pages/Pages.h"
-#include "net/Server.h"
-#include "net/Broadcaster.h"
+#include "net/Network.h"
 #include "ui/models/HostList.h"
 
 namespace Ui {
@@ -52,7 +51,7 @@ private Q_SLOTS:
     void quitApp();
 
 private:
-    void setupServer();
+    void setupNetwork();
     void setupSidebar();
     void setupTrayIcon();
 
@@ -65,8 +64,7 @@ private:
     Tray m_tray;
 
     HostList* m_hosts{nullptr};
-    Broadcaster m_broadcaster;
-    Server* m_server{nullptr};
+    Network* m_network{nullptr};
 };
 
 #endif // MAINWINDOW_H

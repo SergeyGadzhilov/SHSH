@@ -23,27 +23,24 @@
 #include <QAbstractListModel>
 
 #include "core/Host.h"
-#include "net/Broadcaster.h"
 
 class HostList : public QAbstractListModel
 {
 public:
-    HostList(Broadcaster& broadcast, QObject* parent = nullptr);
+    HostList(QObject* parent = nullptr);
 
     QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
     int rowCount(const QModelIndex& parent = QModelIndex()) const override;
 
     void refresh();
 
-    Host host(int index) const;
-    Host host(const std::string& id) const;
-    Host host(const QHostAddress& address) const;
+    Host GetHost(int index) const;
+    Host GetHost(const std::string& id) const;
+    Host GetHost(const QHostAddress& address) const;
 
     const std::vector<Host>& getHosts() const;
     void setHosts(const std::vector<Host>& hosts);
-
-private Q_SLOTS:
-    void onBroadcastReceived(const Host &fromDevice);
+    void AddHost(const Host &host);
 
 private:
     bool isLocalHost(const Host& host) const;
@@ -51,7 +48,6 @@ private:
     QString toolTip(const Host& host) const;
     QPixmap osImage(const Host& host) const;
 
-    Broadcaster& m_Broadcast;
     std::vector<Host> m_Hosts;
 };
 

@@ -61,7 +61,7 @@ QVector<Host> SelectReceiverPage::GetSelectedHosts() const
         QModelIndexList selected = selModel->selectedIndexes();
         for (auto selectedIndex : selected) {
             if (selectedIndex.isValid()) {
-                hosts.push_back(m_model->host(selectedIndex.row()));
+                hosts.push_back(m_model->GetHost(selectedIndex.row()));
             }
         }
     }

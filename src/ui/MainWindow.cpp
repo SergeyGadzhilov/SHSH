@@ -38,13 +38,12 @@ using namespace shshare::widgets;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    m_tray(this),
-    m_broadcaster(this)
+    m_tray(this)
 {
     ui->setupUi(this);
     setWindowTitle(::shshare::Settings::AppName());
 
-    setupServer();
+    setupNetwork();
     setupSidebar();
     setupTrayIcon();
 }
@@ -94,13 +93,16 @@ void MainWindow::setMainWindowVisibility(bool visible)
     }
 }
 
-void MainWindow::setupServer()
+void MainWindow::setupNetwork()
 {
-    m_broadcaster.start();
-    m_hosts = new HostList(m_broadcaster, this);
-    m_server = new Server(this);
-    m_server->listen();
-    connect(m_server, &Server::newReceiverAdded, ui->downloads, &shshare::pages::Downloads::insert);
+    m_hosts = new HostList(this);
+    m_network = new Network(this);
+
+    m_network->listen();
+    m_network->Broadcast();
+
+    connect(m_network, &Network::NewHost, m_hosts, &HostList::AddHost);
+    connect(m_network, &Network::StartDownload, ui->downloads, &shshare::pages::Downloads::insert);
 }
 
 void MainWindow::selectReceiversAndSendTheFiles(const QStringList& paths)
@@ -110,7 +112,7 @@ void MainWindow::selectReceiversAndSendTheFiles(const QStringList& paths)
         QVector<Host> receivers = dialog.getSelectedHosts();
         for (const auto& receiver : receivers) {
             if (receiver.isValid()) {
-                m_broadcaster.send();
+                m_network->Broadcast();
                 for (const auto& path : paths) {
                     send(receiver, path);
                 }

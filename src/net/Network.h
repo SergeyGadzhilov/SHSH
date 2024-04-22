@@ -15,30 +15,35 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef SERVER_H
-#define SERVER_H
+#ifndef SHASHARE_NET_NETWORK_H
+#define SHASHARE_NET_NETWORK_H
 
 #include <QTcpServer>
 #include <QObject>
 
 #include "net/Download.h"
+#include "Broadcaster.h"
 
-class Server : public QObject
+class Network : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit Server(QObject *parent = nullptr);
+    explicit Network(QObject *parent = nullptr);
     bool listen(const QHostAddress& addr = QHostAddress::Any);
+    void Connect(const QHostAddress addr);
+    void Broadcast();
 
-Q_SIGNALS:
-    void newReceiverAdded(Download* receiver);
+signals:
+    void NewHost(const Host& host);
+    void StartDownload(Download* receiver);
 
 private Q_SLOTS:
     void onNewConnection();
 
 private:
     QTcpServer m_server;
+    Broadcaster m_broadcaster;
 };
 
-#endif // SERVER_H
+#endif // SHASHARE_NET_NETWORK_H

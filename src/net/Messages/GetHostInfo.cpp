@@ -14,21 +14,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef TYPES_H
-#define TYPES_H
+#include "GetHostInfo.h"
 
 namespace shshare::net::messages
 {
-    enum class PacketType : char
-    {
-        Header = 0x01,
-        Data,
-        Finish,
-        Cancel,
-        Pause,
-        Resume,
-        HostInfo,
-        GetHostInfo
-    };
+
+GetHostInfo::GetHostInfo() {}
+
+const PacketType GetHostInfo::Type() const
+{
+    return PacketType::GetHostInfo;
 }
-#endif // TYPES_H
+
+const QByteArray GetHostInfo::Serialize() const
+{
+    return QByteArray();
+}
+
+}
+

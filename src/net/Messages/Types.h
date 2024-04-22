@@ -27,7 +27,7 @@ namespace shshare::net::messages
         Cancel,
         Pause,
         Resume,
-        HandShake
+        HostInfo
     };
 }
 #endif // TYPES_H

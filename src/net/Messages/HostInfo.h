@@ -14,8 +14,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef GETINFO_H
-#define GETINFO_H
+#ifndef HOSTINFO_H
+#define HOSTINFO_H
 
 #include "NetworkMessage.h"
 #include <core/Host.h>
@@ -23,11 +23,11 @@
 namespace shshare::net::messages
 {
 
-class GetInfo : public NetworkMessage
+class HostInfo : public NetworkMessage
 {
 public:
-    GetInfo();
-    explicit GetInfo(QByteArray data);
+    HostInfo();
+    explicit HostInfo(QByteArray data);
     const Host& GetHost() const;
 
     virtual const PacketType Type() const override;
@@ -39,4 +39,4 @@ private:
 
 }
 
-#endif // GETINFO_H
+#endif // HOSTINFO_H

@@ -54,7 +54,7 @@ protected:
     virtual void processCancelPacket();
     virtual void processPausePacket();
     virtual void processResumePacket();
-    virtual void processHandShake(QByteArray& data);
+    virtual void processHostInfo(QByteArray& data);
 
     virtual void writePacket(qint32 size, PacketType type, const QByteArray& data);
 

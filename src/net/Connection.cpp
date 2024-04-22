@@ -108,7 +108,7 @@ void Connection::processPacket(QByteArray &data, PacketType type)
     case PacketType::Cancel : processCancelPacket(); break;
     case PacketType::Pause : processPausePacket(); break;
     case PacketType::Resume : processResumePacket(); break;
-    case PacketType::HandShake: processHandShake(data); break;
+    case PacketType::HostInfo: processHostInfo(data); break;
     }
 }
 
@@ -138,7 +138,7 @@ void Connection::processResumePacket()
 {
 }
 
-void Connection::processHandShake(QByteArray& data)
+void Connection::processHostInfo(QByteArray& data)
 {
 }
 

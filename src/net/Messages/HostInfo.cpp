@@ -15,18 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <sstream>
-#include "GetInfo.h"
+#include "HostInfo.h"
 #include "settings/Settings.h"
 
 namespace shshare::net::messages
 {
 
-GetInfo::GetInfo()
+HostInfo::HostInfo()
 {
     m_host = ::shshare::Settings::instance().getLocalHost();
 }
 
-GetInfo::GetInfo(QByteArray message)
+HostInfo::HostInfo(QByteArray message)
 {
     std::stringstream stream(message.data());
     m_host.setId(DeserializeString(stream));
@@ -35,12 +35,12 @@ GetInfo::GetInfo(QByteArray message)
     m_host.setAddress(DeserializeAddress(stream));
 }
 
-const Host& GetInfo::GetHost() const
+const Host& HostInfo::GetHost() const
 {
     return m_host;
 }
 
-const QByteArray GetInfo::Serialize() const
+const QByteArray HostInfo::Serialize() const
 {
     std::stringstream stream;
 
@@ -52,9 +52,9 @@ const QByteArray GetInfo::Serialize() const
     return stream.str().c_str();
 }
 
-const PacketType GetInfo::Type() const
+const PacketType HostInfo::Type() const
 {
-    return PacketType::HandShake;
+    return PacketType::HostInfo;
 }
 
 }

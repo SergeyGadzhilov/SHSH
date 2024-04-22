@@ -20,7 +20,6 @@
 #include <QJsonObject>
 
 #include "Upload.h"
-#include "net/Messages/HandShake.h"
 #include "settings/Settings.h"
 
 Upload::Upload(const Host& receiver, const QString& folder, const QString& file, QObject* parent) :
@@ -80,7 +79,6 @@ void Upload::cancel()
 void Upload::onConnected()
 {
     mInfo->transfer();
-    sendHandShake();
     sendHeader();
 }
 
@@ -160,21 +158,20 @@ void Upload::sendData()
     }
 }
 
-void Upload::sendHandShake()
-{
-    HandShake message;
-    sendMessage(message);
-}
-
 void Upload::sendHeader()
 {
+    auto localhost = ::shshare::Settings::instance().getLocalHost();
     QString fName = QDir(mFile->fileName()).dirName();
 
     QJsonObject obj( QJsonObject::fromVariantMap({
-                                    {"name", fName},
-                                    {"folder", m_folder },
-                                    {"size", m_size}
-                                }));
+        {"id", localhost.getId().c_str()},
+        {"host_name", localhost.getName().c_str()},
+        {"os_name", localhost.getOSName().c_str()},
+        {"address", localhost.getAddress().toString()},
+        {"file_name", fName},
+        {"folder", m_folder },
+        {"size", m_size}
+    }));
 
     QByteArray headerData( QJsonDocument(obj).toJson() );
 

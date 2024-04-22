@@ -33,7 +33,6 @@ private:
     void processDataPacket(QByteArray& data) override;
     void processFinishPacket() override;
     void processCancelPacket() override;
-    void processHandShake(QByteArray& data) override;
 
     void createFile(const QString& folderName, const QString& fileName);
     QString getUniqueFileName(const QString& fileName, const QString& folderPath);

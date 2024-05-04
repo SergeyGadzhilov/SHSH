@@ -64,8 +64,8 @@ void EnterIpPage::initFooter()
     connect(sendButton, &FilledButton::clicked, this, [this](){
         if (m_address->Validate())
         {
+            emit OnConnect(m_address->GetHostAddress());
             m_address->Reset();
-            emit OnConnect();
         }
     });
     footer->addWidget(sendButton);

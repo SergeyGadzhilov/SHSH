@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <QLabel>
+#include <QString>
 #include <QIntValidator>
 #include "IpAddress.h"
 
@@ -81,6 +82,19 @@ void IpAddress::Reset()
     std::for_each(m_items.begin(), m_items.end(), [](IpAddressItem& item){
         item.Reset();
     });
+}
+
+const QHostAddress IpAddress::GetHostAddress() const
+{
+    QString address;
+    std::for_each(m_items.begin(), m_items.end(), [this, &address](const IpAddressItem& item){
+        address.append(item.text());
+        if (&item != &m_items.back())
+        {
+            address.append(".");
+        }
+    });
+    return QHostAddress(address);
 }
 
 }

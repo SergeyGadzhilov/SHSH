@@ -16,8 +16,9 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "Network.h"
+#include "Messages/GetHostInfo.h"
 #include "settings/Settings.h"
-
+#include <iostream>
 
 Network::Network(QObject *parent) :
     QObject(parent),
@@ -34,9 +35,14 @@ bool Network::listen(const QHostAddress &addr)
     return m_server.listen(addr, ::shshare::Settings::instance().getTransferPort());
 }
 
-void Network::Connect(const QHostAddress addr)
+void Network::Connect(const QHostAddress& addr)
 {
-
+    std::cout<<"Network::Connect: Connecting to "<<addr.toIPv4Address()<<std::endl;
+    auto connection = new Connection();
+    connect(connection, &Connection::Connected, this, [&connection](){
+        connection->sendMessage(GetHostInfo{});
+    });
+    connection->Connect(addr, ::shshare::Settings::instance().getTransferPort());
 }
 
 void Network::Broadcast()
@@ -49,9 +55,9 @@ void Network::onNewConnection()
     auto socket = m_server.nextPendingConnection();
     if (socket) {
         auto connection = new Connection(socket, this);
-        connect(connection, &Connection::HostInfo, this, [](){
-
+        connect(connection, &Connection::HostInfo, this, [](Host host){
+            std::cout<<"Received host = "<<host.getId()<<std::endl;
         });
-        emit StartDownload(new Download(socket));
+        //emit StartDownload(new Download(socket));
     }
 }

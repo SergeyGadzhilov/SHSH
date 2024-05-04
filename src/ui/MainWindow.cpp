@@ -108,6 +108,10 @@ void MainWindow::setupNetwork()
 void MainWindow::selectReceiversAndSendTheFiles(const QStringList& paths)
 {
     DestinationDialog dialog(m_hosts);
+    connect(&dialog, &DestinationDialog::OnConnect, this, [this](QHostAddress address){
+        m_network->Connect(address);
+    });
+
     if (dialog.exec() == QDialog::Accepted) {
         QVector<Host> receivers = dialog.getSelectedHosts();
         for (const auto& receiver : receivers) {

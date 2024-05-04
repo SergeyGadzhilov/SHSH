@@ -19,6 +19,7 @@
 #define DESTINATION_DIALOG_H
 
 #include <QDialog>
+#include <QHostAddress>
 
 class HostList;
 class Host;
@@ -36,6 +37,8 @@ public:
     ~DestinationDialog() override;
 
     QVector<Host> getSelectedHosts() const;
+signals:
+    void OnConnect(QHostAddress address);
 
 private:
     Ui::ReceiverSelectorDialog *ui = nullptr;

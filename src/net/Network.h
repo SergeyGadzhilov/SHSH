@@ -31,7 +31,7 @@ class Network : public QObject
 public:
     explicit Network(QObject *parent = nullptr);
     bool listen(const QHostAddress& addr = QHostAddress::Any);
-    void Connect(const QHostAddress addr);
+    void Connect(const QHostAddress& addr);
     void Broadcast();
 
 signals:

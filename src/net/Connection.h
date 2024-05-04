@@ -32,7 +32,7 @@ class Connection : public QObject
     Q_OBJECT
 
 public:
-    Connection(QTcpSocket* socket, QObject* parent = nullptr);
+    Connection(QTcpSocket* socket = nullptr, QObject* parent = nullptr);
 
     inline ConnectionInfo* getConnectionInfo() const { return mInfo; }
 
@@ -43,8 +43,10 @@ public:
 
     void GetHostInfo();
     bool isFinished() const;
+    void Connect(const QHostAddress& address, int port);
 
 signals:
+    void Connected();
     void HostInfo(Host host);
 
 protected:

@@ -18,6 +18,7 @@
 #include "Connection.h"
 #include <net/Messages/GetHostInfo.h>
 #include <net/Messages/HostInfo.h>
+#include <iostream>
 
 Connection::Connection(QTcpSocket* socket, QObject* parent) :
     QObject(parent)
@@ -59,6 +60,14 @@ bool Connection::isFinished() const
     return state != ConnectionStateID::Paused &&
            state != ConnectionStateID::Transfering &&
            state != ConnectionStateID::Waiting;
+}
+
+void Connection::Connect(const QHostAddress& address, int port)
+{
+    std::cout<<"Connection::Connect: Connecting to "
+              <<address.toIPv4Address()
+              <<":"<<port<<std::endl;
+    mSocket->connectToHost(address, port);
 }
 
 void Connection::onMessageReceived()
@@ -166,9 +175,12 @@ void Connection::clearReadBuffer()
 
 void Connection::setSocket(QTcpSocket *socket)
 {
-    if (socket) {
-        mSocket = socket;
-        connect(mSocket, &QTcpSocket::readyRead, this, &Connection::onMessageReceived);
+    if (!socket) {
+        socket = new QTcpSocket(this);
     }
+    mSocket = socket;
+
+    connect(mSocket, &QTcpSocket::readyRead, this, &Connection::onMessageReceived);
+    connect(mSocket, &QTcpSocket::connected, this, [this](){emit Connected();});
 }
 

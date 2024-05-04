@@ -31,7 +31,7 @@ public:
     explicit EnterIpPage(QWidget *parent = nullptr);
 
 signals:
-    void OnConnect();
+    void OnConnect(QHostAddress address);
     void OnClose();
 
 private:

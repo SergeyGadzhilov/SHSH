@@ -20,6 +20,7 @@
 #include <array>
 #include <QWidget>
 #include <QHBoxLayout>
+#include <QHostAddress>
 #include "ui/widgets/IpAddress/IpAddressItem.h"
 
 namespace shshare::widgets
@@ -33,6 +34,7 @@ public:
     bool Validate();
     void Clear();
     void Reset();
+    const QHostAddress GetHostAddress() const;
 
 private:
     void initLayout();
